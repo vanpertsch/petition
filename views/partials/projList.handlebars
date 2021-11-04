@@ -1,0 +1,19 @@
+
+    {{! working only to loop over arrays: }}
+
+    {{#projects}}
+        <div class="item">
+            {{#if ../front}}
+            <div class="item__image">
+                <img src="{{directory}}/screenshot.png" alt="" />
+
+            </div>
+            {{/if}}
+            <a {{#if ../front}} class=""{{else}} class="{{ compare directory}}" {{/if}} href="/projects/{{directory}}">
+            <h3>{{project}}</h3>
+            </a>
+        </div>
+
+    {{/projects}}
+
+
