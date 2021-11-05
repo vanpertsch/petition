@@ -62,8 +62,9 @@ app.get("/signers", (req, res) => {
 app.post("/petition", (req, res) => {
 
     const { first, last, hidden } = req.body;
+    console.log(hidden);
 
-    db.addSigner(first, last, "forTesting")
+    db.addSigner(first, last, hidden)
         .then(() => {
             console.log("yay insertet");
         }).catch(err => {

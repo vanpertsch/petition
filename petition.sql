@@ -1,8 +1,8 @@
-  DROP TABLE IF EXISTS signatures;
+  DROP TABLE IF EXISTS mysignatures;
 
-   CREATE TABLE signatures (
+   CREATE TABLE mysignatures (
        id SERIAL PRIMARY KEY,
        first VARCHAR NOT NULL CHECK (first != ''),
        last VARCHAR NOT NULL CHECK (last != ''),
-       signature VARCHAR NOT NULL CHECK (signature != '')
+       signature TEXT NOT NULL CHECK (signature != '')
    );
