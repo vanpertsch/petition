@@ -2,4 +2,11 @@
 
 <div class="container">
     <h2>Thank you</h2>
+    {{#sign}}
+        <img src="{{signature}}" alt="" />
+    {{/sign}}
+    {{#signersTotal}}
+        {{count}}
+        people have singed the petition.
+    {{/signersTotal}}
 </div>
