@@ -28,7 +28,7 @@ ul {
 
 nav {
     width: 100%;
-    height: 10vh;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
     vertical-align: baseline;
@@ -64,7 +64,7 @@ img {
 
 .topimage {
     width: 100%;
-    height: 550px;
+    height: 72vh;
     background: url(images/bike-lane.jpg) center no-repeat;
     background-size: cover;
     /* object-fit: cover;
@@ -76,52 +76,114 @@ h2 {
 }
 
 .teaser {
+    width: 100%;
     margin-top: 3rem;
     display: flex;
 }
+.thanks {
+}
 
+.supporters {
+    text-transform: uppercase;
+    color: #478d32;
+}
 .teaser-left {
     width: 70%;
 }
 .teaser-right {
     width: 30%;
+    position: relative;
+}
+
+.teaser__image {
+    position: absolute;
+    top: 80px;
+    left: 150px;
 }
 
 .teaser__text {
     font-size: 1.2rem;
+    margin-top: 0.8em;
+    margin-bottom: 1.6em;
+    line-height: 1.8rem;
+}
+.signers {
+    margin-top: 3rem;
+}
+.signer {
+    font-size: 1.2rem;
+    margin-top: 0.4em;
+    margin-bottom: 0.8em;
+    line-height: 1.8rem;
 }
 
 img.sig {
-    width: 100px;
-    height: 33px;
+    border: 1px solid #478d32;
+    width: 80%;
+    height: auto;
     object-fit: cover;
     object-position: top left;
+    margin: 3rem 0;
 }
 
-footer {
-    margin-top: auto;
-}
 canvas {
     background-color: white;
-    margin-bottom: 20px;
+    border: 1px solid #dcdcdc;
+    position: relative; /* Necessary for correct mouse co-ords in Firefox */
+}
+
+.form {
+    width: 80%;
+    margin: auto;
+    height: auto;
 }
 form {
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+input {
+    padding: 0.85714em 1.35714em;
+    line-height: normal;
+    border: 1px solid #dcdcdc;
+    border-bottom-color: #cfcfcf;
+    font-size: 0.93333em;
+    color: inherit;
+    background: #fff;
+    margin: 0 18px 0 12px;
+}
+
+.mandatory {
+    margin-left: 0.1428em;
+    color: #478d32;
+}
 .inputfields {
-    margin-bottom: 20px;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
 }
 
 button {
-    background-color: darkblue;
-    color: cornsilk;
-    line-height: 1.5rem;
-    border-radius: 3px;
+    padding: 1.07143em 1.42857em;
+    border: 0;
+    outline: none;
+    font-size: 0.93333em;
+    letter-spacing: 0.1em;
+    line-height: 1.42929;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: rgb(44, 43, 48);
+    margin-top: 20px;
 }
 button:hover {
-    background-color: rgb(3, 3, 187);
+    background-color: #478d32;
     color: cornsilk;
+}
+footer {
+    text-align: center;
+    margin: 3rem;
+    padding: 3rem 0 2rem 0;
 }
