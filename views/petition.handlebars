@@ -1,0 +1,51 @@
+{{>topimage}}
+<div class="container">
+    <div class="teaser">
+    <div class="teaser-left">
+        <h2 class="teaser__headline">Sign Petition Now!</h2>
+        <p class="teaser__text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Perspiciatis, itaque ut cumque quisquam dicta dignissimos! Sapiente
+            repudiandae illo dolorem quidem eum quibusdam expedita molestiae!
+            Mollitia nesciunt quam sint inventore error.</p>
+    </div>
+    <div class="teaser-right">
+
+    <div class="teaser__image"> <img src="images/logo.png" alt="logo" /></div>
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+                <label for="first">First Name</label>
+                <input
+                    type="text"
+                    name="first"
+                    id=""
+                    placeholder="First Name"
+                />
+                <label for="last">Last Name</label>
+                <input type="text" name="last" id="" placeholder="Last Name" />
+                <input
+                    type="hidden"
+                    id="hiddenfield"
+                    name="hidden"
+                    value="testing"
+                />
+            </div>
+
+            <canvas id="canvas" width="300px" height="100px"></canvas>
+
+            <button>Submit</button>
+        </form>
+
+    </div>
+
+</div>
+{{! lopp works with objects and arrays: }}
+{{!-- {{#each projects}}
+                <li>{{name}}</li>
+            {{/each}} --}}
