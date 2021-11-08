@@ -1,9 +1,22 @@
-<h1>These people signed the petition</h1>
 
-{{#signers}}
-    <div class="item">
-        {{first}}
-        {{last}}
+{{>topimage}}
+<div class="container">
+    <div class="teaser">
+    <div class="teaser-left">
+       <h2>These people signed the petition</h2>
+        <div class="signers">
+        {{#signers}}
+            <p class="signer"> ✅
+                {{first}}
+                {{last}}
+            </p>
+        {{/signers}}
+        </div>
     </div>
+    <div class="teaser-right">
 
-{{/signers}}
+    <div class="teaser__image"> <img src="images/logo.png" alt="logo" /></div>
+    </div>
+</div>
+</div>
+

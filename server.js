@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const db = require("./db.js");
+const { hash, compare } = require("./bc.js");
 
 const hb = require("express-handlebars");
 const path = require("path");
@@ -39,28 +40,63 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.redirect("/petition");
+    res.redirect("/register");
 });
+
+
+
+app.get("/register", (req, res) => {
+    res.render("register");
+});
+
+
+app.post("/register", (req, res) => {
+
+    const { first, last, email, password } = req.body;
+
+    hash(password)
+        .then(hashedPW => {
+            return db.addSigner(first, last, email, hashedPW,);
+        })
+        .then(({ rows }) => {
+            req.session.sigId = rows[0].id;
+            console.log("yay insertet", req.session);
+            res.redirect("/petition");
+        }).catch(err => {
+            console.log("err in addSigner", err);
+        });
+});
+
+
 
 app.get("/petition", (req, res) => {
-    console.log(req.session);
-    if (req.session.sigId) {
+    res.render("petition", {
+    });
+});
 
-        res.redirect("/thanks");
-    } else {
-        res.render("petition", {
-            // layout: null,
-            // cohort: "Poppy",
-            // projects
+app.post("/petition", (req, res) => {
+
+    const user_id = req.session.sigId;
+
+    console.log(req.body);
+    const { hidden } = req.body;
+
+    db.addSignature(user_id, hidden)
+        .then(({ rows }) => {
+            req.session.signatureId = rows[0].id;
+            console.log("yay insertet", req.session);
+            res.redirect("/thanks");
+        }).catch(err => {
+            console.log("err in addSigner", err);
         });
-    }
-
 
 });
+
+
 app.get("/thanks", (req, res) => {
-    if (req.session.sigId) {
+    if (req.session.signatureId) {
         Promise.all([
-            db.getSignature(req.session.sigId),
+            db.getSignature(req.session.signatureId),
             db.getSignersTotal()
         ]).
             then((data) => {
@@ -74,20 +110,13 @@ app.get("/thanks", (req, res) => {
                 });
             }).catch(err => console.log("err in getSignersTotal", err));
 
-        // db.getSignersTotal().then(({ rows }) => {
-        //     res.render("thanks", {
-        //         // layout: null,
-        //         sign: sign,
-        //         signersTotal: rows
-        //     });
-        // }).catch(err => console.log("err in getSignersTotal", err));
     } else {
         res.redirect("/petition");
     }
 
 });
-app.get("/signers", (req, res) => {
 
+app.get("/signers", (req, res) => {
     db.getSigners()
         .then(({ rows }) => {
             res.render("signers", {
@@ -96,20 +125,46 @@ app.get("/signers", (req, res) => {
                 signers: rows
             });
         }).catch(err => console.log("err in getSigners", err));
+});
+
+
+
+app.get("/login", (req, res) => {
+    res.render("login", {
+    });
 
 });
 
-app.post("/petition", (req, res) => {
 
-    const { first, last, hidden } = req.body;
-    db.addSigner(first, last, hidden)
-        .then(({ rows }) => {
-            req.session.sigId = rows[0].id;
-            console.log("yay insertet", req.session);
-            res.redirect("/thanks");
-        }).catch(err => {
-            console.log("err in addSigner", err);
+app.post("/login", (req, res) => {
+
+    const { email, password } = req.body;
+    console.log("login emlai", email);
+
+    db.checkEmail(email).then(result => {
+        // console.log(result);
+        if (result.rows == []) {
+            throw new Error("Whoops!");
+        } else {
+            return db.checkPassword(email);
+        }
+    }).then(({ rows }) => {
+        return compare(password, rows[0].password);
+    }).then(result => {
+        if (result) {
+            return db.getUserId(email);
+
+        } else {
+            throw new Error("Whoops 222!");
+        }
+    }).then(({ rows }) => {
+        req.session.sigId = rows[0].id;
+        res.redirect("/petition");
+    })
+        .catch(err => {
+            console.log("err in check", err);
         });
+
 
 });
 
@@ -119,6 +174,8 @@ app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
 });
+
+//
 
 
 

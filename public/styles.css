@@ -4,8 +4,8 @@
     margin: 0;
 }
 body {
-    background-color: cornsilk;
-    color: darkblue;
+    background-color: rgb(252, 252, 252);
+    color: rgb(44, 43, 48);
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
     height: 100vh;
@@ -13,15 +13,13 @@ body {
     flex-direction: column;
 }
 
-header,
-main,
-footer {
-    width: 90%;
+.container {
+    width: 80%;
     margin: auto;
-}
-
-header {
-    margin-top: 5%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: auto;
 }
 
 ul {
@@ -30,117 +28,178 @@ ul {
 
 nav {
     width: 100%;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
-    line-height: 1.2rem;
+    vertical-align: baseline;
+    /* line-height: 1.2rem; */
+}
+.logo a {
+    font-size: 3rem;
+}
+.logo span {
+    line-height: 3rem;
+    font-size: 1.8rem;
+}
+.menu {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
 }
 
 a {
     text-decoration: none;
-}
-a {
-    /* color: cornsilk; */
 }
 
 a.active {
     color: lightgreen;
 }
 
-.container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 100%;
-    /* height: 80vh; */
-    /* flex-direction: column; */
-}
-
-.container__project {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: auto;
-}
-
-.project {
-    width: 75%;
-    /* margin-left: 5%; */
-}
-
-.item {
-    width: 340px;
-    height: auto;
-}
-
-.item__image {
-    width: 340px;
-    max-height: 220px;
-}
-.project__image {
-    width: 550px;
-    max-height: 300px;
-}
-
 img {
+    display: block;
     max-width: 100%;
-    height: 220px;
+    height: auto;
     object-fit: cover;
     object-position: top left;
-    opacity: 0.8;
+}
+
+.topimage {
+    width: 100%;
+    height: 72vh;
+    background: url(images/bike-lane.jpg) center no-repeat;
+    background-size: cover;
+    /* object-fit: cover;
+    object-position: top left; */
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+.teaser {
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+}
+.thanks {
+}
+
+.link-green {
+    text-transform: uppercase;
+    color: #478d32;
+}
+.teaser-left {
+    width: 70%;
+    margin: auto;
+}
+.teaser-right {
+    width: 30%;
+    position: relative;
+}
+
+.teaser__image {
+    position: absolute;
+    top: 80px;
+    left: 150px;
+}
+
+.teaser__text {
+    font-size: 1.2rem;
+    margin-top: 0.8em;
+    margin-bottom: 1.6em;
+    line-height: 1.8rem;
+}
+.signers {
+    margin-top: 3rem;
+}
+.signer {
+    font-size: 1.2rem;
+    margin-top: 0.4em;
+    margin-bottom: 0.8em;
+    line-height: 1.8rem;
 }
 
 img.sig {
-    width: 100px;
-    height: 33px;
+    border: 1px solid #478d32;
+    width: 80%;
+    height: auto;
     object-fit: cover;
     object-position: top left;
+    margin: 3rem 0;
 }
 
-.project__image > img {
-    max-width: 100%;
-    height: 300px;
-    object-fit: cover;
-    object-position: top left;
-    opacity: 0.8;
-}
-img:hover {
-    opacity: 1;
-}
-
-footer {
-    margin-top: auto;
-}
 canvas {
     background-color: white;
-    margin-bottom: 20px;
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-}
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    border: 1px solid #dcdcdc;
+    position: relative; /* Necessary for correct mouse co-ords in Firefox */
 }
 
+.form {
+    width: 100%;
+
+    height: auto;
+}
+form {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.input {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+label {
+    /* display: inline-block; */
+    width: 20%;
+    padding: 1em 1.35714em;
+}
+
+input {
+    width: 80%;
+    padding: 1em 1.35714em;
+    line-height: normal;
+    border: 1px solid #dcdcdc;
+    border-bottom-color: #cfcfcf;
+    font-size: 0.93333em;
+    color: inherit;
+    background: #fff;
+}
+
+.mandatory {
+    margin-left: 0.1428em;
+    color: #478d32;
+}
 .inputfields {
-    margin-bottom: 20px;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
 }
 
 button {
-    background-color: darkblue;
-    color: cornsilk;
-    line-height: 1.5rem;
-    border-radius: 3px;
+    padding: 1.07143em 1.42857em;
+    border: 0;
+    outline: none;
+    font-size: 0.93333em;
+    letter-spacing: 0.1em;
+    line-height: 1.42929;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: rgb(44, 43, 48);
+    margin-top: 20px;
 }
 button:hover {
-    background-color: rgb(3, 3, 187);
+    background-color: #478d32;
     color: cornsilk;
+}
+footer {
+    text-align: center;
+    margin: 3rem;
+    padding: 3rem 0 2rem 0;
 }

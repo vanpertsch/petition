@@ -1,12 +1,23 @@
-<a class="" href="/signers">Signers</a>
-
+{{>topimage}}
 <div class="container">
-    <h2>Thank you</h2>
-    {{#sign}}
-        <img src="{{signature}}" alt="" />
-    {{/sign}}
-    {{#signersTotal}}
-        {{count}}
-        people have singed the petition.
-    {{/signersTotal}}
+    <div class="teaser">
+    <div class="teaser-left">
+        <h2>Thank you for your support!</h2>
+          {{#sign}}
+              <img class="sig" src="{{signature}}" alt="" />
+            {{/sign}}
+         {{#signersTotal}}
+          <p class="teaser__text">
+         {{count}}
+       people have singed the petition. Who else has signed? </p>
+        {{/signersTotal}}
+    <p class="teaser__text">See our <a class="link-green" href="/signers"> supporters</a></p>
+    </div>
+    <div class="teaser-right">
+
+    <div class="teaser__image"> <img src="images/logo.png" alt="logo" /></div>
+    </div>
 </div>
+</div>
+
+

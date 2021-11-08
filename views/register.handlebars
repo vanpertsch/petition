@@ -1,0 +1,65 @@
+{{>topimage}}
+<div class="container">
+    <div class="teaser">
+        <div class="teaser-left">
+            <p class="teaser__text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Perspiciatis, itaque ut cumque quisquam dicta dignissimos!
+                Sapiente
+                repudiandae illo dolorem quidem eum quibusdam expedita
+                molestiae!
+                Mollitia nesciunt quam sint inventore error.</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+                <div class="input">
+                    <label for="first">First Name <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="first" id=""
+                        placeholder="First Name" />
+                </div>
+                <div class="input">
+                    <label for="last">Last Name <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="last" id=""
+                        placeholder="Last Name" />
+                </div>
+
+                <div class="input">
+                    <label for="email">E-Mail <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="email" id=""
+                        placeholder="E-Mail" />
+                </div>
+                <div class="input">
+                    <label for="password">Password <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="password" id=""
+                        placeholder="Password" />
+                </div>
+                <input type="hidden" id="hiddenfield" name="hidden"
+                    value="testing" />
+            </div>
+            <button>Sign Up!</button>
+        </form>
+    </div>
+    <div class="teaser">
+        <div class="teaser-left">
+            <p class="teaser__text">
+                If you are already a member please <a class="link-green"
+                    href="/login">
+                    log in</a></p>
+        </div>
+    </div>
+</div>
+
+
+{{! lopp works with objects and arrays: }}
+{{!-- {{#each projects}}
+<li>{{name}}</li>
+{{/each}} --}}

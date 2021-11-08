@@ -8,19 +8,45 @@ const db = spicedPg(`postgres:${dbUsername}:${dbUserPassword}@localhost:5432/${d
 
 console.log("[db] Connecting to ", database);
 
-module.exports.getSigners = () => {
-    const q = "SELECT * FROM signatures";
-    return db.query(q);
+
+
+module.exports.addSigner = (first, last, email, password) => {
+    const q = `INSERT INTO users (first,last,email,password) VALUES($1,$2,$3,$4) RETURNING id`;
+    const params = [first, last, email, password];
+    return db.query(q, params);
 };
-module.exports.getSignature = (num) => {
-    const q = `SELECT signature FROM signatures WHERE id = ${num}`;
+module.exports.addSignature = (user_id, signature) => {
+    const q = `INSERT INTO signatures (user_id, signature) VALUES($1,$2) RETURNING id`;
+    const params = [user_id, signature];
+    return db.query(q, params);
+};
+
+module.exports.checkEmail = (email) => {
+    const q = `SELECT * FROM users WHERE email = $1`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.checkPassword = (email) => {
+    const q = `SELECT password  FROM users WHERE email = $1`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.getUserId = (email) => {
+    const q = `SELECT id  FROM users WHERE email = $1`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.getSigners = () => {
+    const q = "SELECT id FROM signatures";
     return db.query(q);
 };
 
-module.exports.addSigner = (first, last, signature) => {
-    const q = `INSERT INTO signatures (first,last,signature) VALUES($1,$2,$3) RETURNING id`;
-    const params = [first, last, signature];
-    return db.query(q, params);
+module.exports.getSignature = (num) => {
+    const q = `SELECT signature FROM signatures WHERE id = ${num}`;
+    return db.query(q);
 };
 
 module.exports.getSignersTotal = () => {
