@@ -8,7 +8,8 @@ const path = require("path");
 
 const cookieSession = require('cookie-session');
 
-const helmet = require('helmet')
+const helmet = require('helmet');
+const { parse } = require('path');
 
 app.use(helmet.frameguard());
 
@@ -64,20 +65,12 @@ app.post("/register", (req, res) => {
             res.redirect("/profile");
         }).catch((err) => {
             console.log("err in addSigner", err);
-            res.render("/profile", {
+            res.render("profile", {
                 error: "Please try again"
             });
         });
 });
 
-
-
-
-app.get("/login", (req, res) => {
-    res.render("login", {
-    });
-
-});
 
 
 
@@ -89,37 +82,52 @@ app.post("/login", (req, res) => {
     db.checkEmail(email).then(result => {
         // console.log(result);
         if (result == undefined) {
-            return res.render("/login", {
+            return res.render("login", {
                 error: "Please enter valid email and password"
             });
         } else {
-            return db.checkPassword(email);
-        }
-    }).then(({ rows }) => {
-        return compare(password, rows[0].password);
-    }).then(result => {
-        console.log("comapre", result);
-        if (result) {
-            return db.getUserId(email);
+            return db.checkPassword(email)
+                .then(({ rows }) => {
+                    return compare(password, rows[0].password);
+                }).then(result => {
+                    // console.log("comapre", result);
+                    if (result) {
+                        return db.getUserId(email).then(({ rows }) => {
+                            // console.log("userId", rows[0].id);
+                            req.session.userId = rows[0].id;
+                            db.checkIfHasSigned(rows[0].id).then(({ rows }) => {
+                                // console.log(rows[0].signature);
+                                if (rows[0] == undefined) {
+                                    return res.redirect("/petition");
 
-        } else {
-            return res.render("/login", {
-                error: "Please enter valid email and password"
-            });
+                                } else {
+                                    // req.session.userId = rows[0].id;
+                                    return res.redirect("/thanks");
+                                }
+                            });
+
+                        });
+
+                    } else {
+                        return res.render("login", {
+                            error: "Please enter valid email and password"
+                        });
+                    }
+                })
         }
-    }).then((userID) => {
-        console.log("userId", userID);
-        // req.session.userId = rows[0].id;
-        return res.redirect("/petition");
     }).catch((err) => {
         console.log("err in login", err);
-        return res.render("/loigin", {
+        return res.render("login", {
             error: "Please enter valid email and password"
         });
     });
 });
 
+app.get("/login", (req, res) => {
+    res.render("login", {
+    });
 
+});
 
 app.get("/petition", (req, res) => {
     res.render("petition", {
@@ -170,20 +178,31 @@ app.get("/thanks", (req, res) => {
 
 app.get("/signers", (req, res) => {
 
-    db.getSignersIds()
-        .then(({ rows }) => {
-            console.log("SignersIDs", rows);
-            const ids = rows.map(row => row.user_id);
-            console.log("IDS", ids);
-            return db.getSigners(ids);
-        })
-        .then(({ rows }) => {
-            res.render("signers", {
-                // layout: null,
-                // cohort: "Poppy",
-                signers: rows
-            });
-        }).catch(err => console.log("err in getSignersId", err));
+
+    db.getSignersWithJoin().then(({ rows }) => {
+        console.log("SignersJOIN", rows);
+        return res.render("signers", {
+            // layout: null,
+            allSigners: true,
+            signers: rows
+        });
+    }).catch(err => console.log("err in getSignersWithJoin", err));
+
+});
+app.get("/signers/city/:city", (req, res) => {
+    const cityFromUrl = req.params.city.toLowerCase();
+
+    db.getSignersInCity(cityFromUrl).then(({ rows }) => {
+        console.log("getSignersInCity", rows);
+        return res.render("signers", {
+            // layout: null,
+            cityFromUrl: cityFromUrl,
+            signers: rows
+
+        });
+
+    }).catch(err => console.log("err in getSignersInCity", err));
+
 });
 
 
@@ -191,6 +210,28 @@ app.get("/profile", (req, res) => {
     res.render("profile", {
     });
 
+});
+
+app.post("/profile", (req, res) => {
+
+    let { age, city, url } = req.body;
+    const user_id = req.session.userId;
+    const cityInLowerCases = city.toLowerCase();
+    if (url && !url.startsWith("http")) {
+        url = "http://" + url;
+        console.log("cahnge")
+    }
+
+    db.addProfile(user_id, age, cityInLowerCases, url)
+        .then(({ rows }) => {
+            console.log("yay insertet", req.session);
+            res.redirect("/petition");
+        }).catch((err) => {
+            console.log("err in addSigner", err);
+            res.render("profile", {
+                error: "Please try again"
+            });
+        });
 });
 
 

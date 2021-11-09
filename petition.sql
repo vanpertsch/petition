@@ -22,7 +22,7 @@
   CREATE TABLE profiles(
       id SERIAL PRIMARY KEY,
       user_id INTEGER NOT NULL REFERENCES users(id),
-      name TEXT,
+      city TEXT,
       age INT,
       url TEXT
   );

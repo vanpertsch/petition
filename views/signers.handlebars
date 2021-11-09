@@ -3,13 +3,21 @@
 <div class="container">
     <div class="teaser">
     <div class="teaser-left">
-       <h2>These people signed the petition</h2>
+       <h2>These people signed the petition {{#if cityFromUrl}} in {{cityFromUrl}} {{/if}}</h2>
         <div class="signers">
         {{#signers}}
             <p class="signer"> ✅
                 {{first}}
-                {{last}}
+                {{last}} {{age}}
+
             </p>
+            {{#if ../cityFromUrl}}
+
+                {{else}}
+                                <a href="signers/city/{{city}}">
+                {{city}}
+                </a>
+                {{/if}}
         {{/signers}}
         </div>
     </div>

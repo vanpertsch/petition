@@ -20,11 +20,21 @@ module.exports.addSignature = (user_id, signature) => {
     const params = [user_id, signature];
     return db.query(q, params);
 };
+module.exports.addProfile = (user_id, age, city, url) => {
+    const q = `INSERT INTO profiles (user_id, age,city,url) VALUES($1,$2,$3,$4) RETURNING id`;
+    const params = [user_id, age || null, city, url];
+    return db.query(q, params);
+};
 
 module.exports.checkEmail = (email) => {
     const q = `SELECT * FROM users WHERE email = $1`;
     const params = [email];
     return db.query(q, params);
+};
+
+module.exports.checkIfHasSigned = (user_id) => {
+    const q = `SELECT signature FROM signatures WHERE id =${user_id}`;
+    return db.query(q);
 };
 
 module.exports.checkPassword = (email) => {
@@ -46,6 +56,16 @@ module.exports.getSignersIds = () => {
 module.exports.getSigners = (ids) => {
     const q = `SELECT * FROM users WHERE id = ANY(ARRAY[${ids}])`;
     return db.query(q);
+};
+
+module.exports.getSignersWithJoin = () => {
+    const q = `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id JOIN signatures ON users.id = signatures.user_id`;
+    return db.query(q);
+};
+module.exports.getSignersInCity = (city) => {
+    const q = `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id JOIN signatures ON users.id = signatures.user_id WHERE city = $1`;
+    const params = [city];
+    return db.query(q, params);
 };
 
 module.exports.getSignature = (num) => {
