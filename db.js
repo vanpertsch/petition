@@ -10,7 +10,7 @@ console.log("[db] Connecting to ", database);
 
 
 
-module.exports.addSigner = (first, last, email, password) => {
+module.exports.addUser = (first, last, email, password) => {
     const q = `INSERT INTO users (first,last,email,password) VALUES($1,$2,$3,$4) RETURNING id`;
     const params = [first, last, email, password];
     return db.query(q, params);
@@ -39,8 +39,12 @@ module.exports.getUserId = (email) => {
     return db.query(q, params);
 };
 
-module.exports.getSigners = () => {
-    const q = "SELECT id FROM signatures";
+module.exports.getSignersIds = () => {
+    const q = "SELECT user_id FROM signatures";
+    return db.query(q);
+};
+module.exports.getSigners = (ids) => {
+    const q = `SELECT * FROM users WHERE id = ANY(ARRAY[${ids}])`;
     return db.query(q);
 };
 

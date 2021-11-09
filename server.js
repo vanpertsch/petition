@@ -56,15 +56,67 @@ app.post("/register", (req, res) => {
 
     hash(password)
         .then(hashedPW => {
-            return db.addSigner(first, last, email, hashedPW,);
+            return db.addUser(first, last, email, hashedPW);
         })
         .then(({ rows }) => {
-            req.session.sigId = rows[0].id;
+            req.session.userId = rows[0].id;
             console.log("yay insertet", req.session);
-            res.redirect("/petition");
-        }).catch(err => {
+            res.redirect("/profile");
+        }).catch((err) => {
             console.log("err in addSigner", err);
+            res.render("/profile", {
+                error: "Please try again"
+            });
         });
+});
+
+
+
+
+app.get("/login", (req, res) => {
+    res.render("login", {
+    });
+
+});
+
+
+
+app.post("/login", (req, res) => {
+
+    const { email, password } = req.body;
+    console.log("login emlai", email);
+
+    db.checkEmail(email).then(result => {
+        // console.log(result);
+        if (result == undefined) {
+            return res.render("/login", {
+                error: "Please enter valid email and password"
+            });
+        } else {
+            return db.checkPassword(email);
+        }
+    }).then(({ rows }) => {
+        return compare(password, rows[0].password);
+    }).then(result => {
+        console.log("comapre", result);
+        if (result) {
+            return db.getUserId(email);
+
+        } else {
+            return res.render("/login", {
+                error: "Please enter valid email and password"
+            });
+        }
+    }).then((userID) => {
+        console.log("userId", userID);
+        // req.session.userId = rows[0].id;
+        return res.redirect("/petition");
+    }).catch((err) => {
+        console.log("err in login", err);
+        return res.render("/loigin", {
+            error: "Please enter valid email and password"
+        });
+    });
 });
 
 
@@ -76,7 +128,7 @@ app.get("/petition", (req, res) => {
 
 app.post("/petition", (req, res) => {
 
-    const user_id = req.session.sigId;
+    const user_id = req.session.userId;
 
     console.log(req.body);
     const { hidden } = req.body;
@@ -117,56 +169,31 @@ app.get("/thanks", (req, res) => {
 });
 
 app.get("/signers", (req, res) => {
-    db.getSigners()
+
+    db.getSignersIds()
+        .then(({ rows }) => {
+            console.log("SignersIDs", rows);
+            const ids = rows.map(row => row.user_id);
+            console.log("IDS", ids);
+            return db.getSigners(ids);
+        })
         .then(({ rows }) => {
             res.render("signers", {
                 // layout: null,
                 // cohort: "Poppy",
                 signers: rows
             });
-        }).catch(err => console.log("err in getSigners", err));
+        }).catch(err => console.log("err in getSignersId", err));
 });
 
 
-
-app.get("/login", (req, res) => {
-    res.render("login", {
+app.get("/profile", (req, res) => {
+    res.render("profile", {
     });
 
 });
 
 
-app.post("/login", (req, res) => {
-
-    const { email, password } = req.body;
-    console.log("login emlai", email);
-
-    db.checkEmail(email).then(result => {
-        // console.log(result);
-        if (result.rows == []) {
-            throw new Error("Whoops!");
-        } else {
-            return db.checkPassword(email);
-        }
-    }).then(({ rows }) => {
-        return compare(password, rows[0].password);
-    }).then(result => {
-        if (result) {
-            return db.getUserId(email);
-
-        } else {
-            throw new Error("Whoops 222!");
-        }
-    }).then(({ rows }) => {
-        req.session.sigId = rows[0].id;
-        res.redirect("/petition");
-    })
-        .catch(err => {
-            console.log("err in check", err);
-        });
-
-
-});
 
 
 // add this logout route to delete your cookies

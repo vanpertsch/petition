@@ -1,0 +1,43 @@
+{{>topimage}}
+<div class="container">
+    <div class="teaser">
+        <div class="teaser-left">
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+                <div class="input">
+                    <label for="first">Age </label>
+                    <input type="number" name="age" id=""  min="16" placeholder="Age" />
+                </div>
+                <div class="input">
+                    <label for="last">City </label>
+                    <input type="text" name="city" id="" placeholder="City" />
+                </div>
+
+                <div class="input">
+                    <label for="url">E-Mail </label>
+                    <input type="url" name="url" id="" placeholder="Url" />
+                </div>
+
+            </div>
+            <button>Add to profile</button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="form">
+            <button>Skip</button>
+        </div>
+    </div>
+</div>
+
+
+{{! lopp works with objects and arrays: }}
+{{!-- {{#each projects}}
+<li>{{name}}</li>
+{{/each}} --}}
