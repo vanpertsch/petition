@@ -37,7 +37,7 @@ app.use(express.urlencoded({
     extended: false
 }));
 
-const { COOKIE_SECRET } = process.env || require("secrets.json");
+const COOKIE_SECRET = process.env.COOKIE_SECRET || require("./.secrets.json").COOKIE_SECRET;
 
 //Enables session cookies
 app.use(cookieSession({
@@ -117,6 +117,9 @@ app.post("/login", (req, res) => {
                                     return res.redirect("/petition");
 
                                 } else {
+                                    console.log("rows", rows);
+                                    req.session.signatureId = rows[0].id;
+                                    console.log("req.session in login", req.session);
                                     return res.redirect("/thanks");
                                 }
                             });
@@ -173,7 +176,7 @@ app.post("/petition", (req, res) => {
 
 app.get("/thanks", (req, res) => {
     // check for signatureId in cookie
-    console.log("req.session", req.session)
+    console.log("req.session in thanks", req.session);
     if (req.session.signatureId) {
         Promise.all([
             db.getSignature(req.session.signatureId),
@@ -198,7 +201,6 @@ app.get("/thanks", (req, res) => {
 app.get("/signers", (req, res) => {
 
     db.getSignersWithJoin().then(({ rows }) => {
-        console.log("SignersJOIN", rows);
         return res.render("signers", {
             signers: rows
         });
@@ -229,12 +231,34 @@ app.get("/profile-edit", (req, res) => {
     const user_id = req.session.userId;
     db.getUserProfile(user_id)
         .then(({ rows }) => {
-            console.log("getProfile", rows);
+            console.log("getProfileXXX", rows);
             res.render("profile-edit", {
                 userProfile: rows
             });
         }).catch(err => console.log("error in getUserProfile", err));
+});
 
+
+
+
+
+app.post("/profile-edit", (req, res) => {
+
+    let { first, last, email, age, city, url } = req.body;
+
+    const user_id = req.session.userId;
+
+    const cityInLowerCases = city.toLowerCase();
+
+    if (url && !url.startsWith("http")) {
+        url = "http://" + url;
+        console.log("changed");
+    }
+
+    db.updateUser(first, last, email, user_id).then(() => {
+        console.log("yay insertet", req.session);
+        res.redirect("/petition");
+    }).catch(err => console.log("error in updateUser", err));
 
 });
 

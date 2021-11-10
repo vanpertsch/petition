@@ -9,7 +9,7 @@ const db = spicedPg(process.env.DATABASE_URL || `postgres:${dbUsername}:${dbUser
 console.log("[db] Connecting to ", database);
 
 
-
+// ----------------------Adding----------------------------------
 module.exports.addUser = (first, last, email, password) => {
     const q = `INSERT INTO users (first,last,email,password) VALUES($1,$2,$3,$4) RETURNING id`;
     const params = [first, last, email, password];
@@ -26,6 +26,25 @@ module.exports.addProfile = (user_id, age, city, url) => {
     return db.query(q, params);
 };
 
+// ---------------------UPDATES--------------------
+// module.exports.upsertProfile = (user_id, age, city, url) => {
+//     const q = `INSERT INTO profiles (user_id, age,city,url) VALUES($1,$2,$3,$4) RETURNING id`;
+//     const params = [user_id, age || null, city, url];
+//     return db.query(q, params);
+// };
+module.exports.updateUser = (first, last, email, id) => {
+    const q = `UPDATE users SET first = $1, last=$2, email=$3  WHERE users.id = $4`;
+    const params = [first, last, email, id];
+    return db.query(q, params);
+};
+// module.exports.updateUserWithPassword = (user_id, age, city, url) => {
+//     const q = `INSERT INTO profiles (user_id, age,city,url) VALUES($1,$2,$3,$4) RETURNING id`;
+//     const params = [user_id, age || null, city, url];
+//     return db.query(q, params);
+// };
+
+
+
 module.exports.checkEmail = (email) => {
     const q = `SELECT * FROM users WHERE email = $1`;
     const params = [email];
@@ -33,7 +52,7 @@ module.exports.checkEmail = (email) => {
 };
 
 module.exports.checkIfHasSigned = (user_id) => {
-    const q = `SELECT signature FROM signatures WHERE id =${user_id}`;
+    const q = `SELECT signature, id FROM signatures WHERE id =${user_id}`;
     return db.query(q);
 };
 
@@ -68,7 +87,7 @@ module.exports.getSignersInCity = (city) => {
     return db.query(q, params);
 };
 module.exports.getUserProfile = (id) => {
-    const q = `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id JOIN signatures ON users.id = signatures.user_id WHERE users.id = $1`;
+    const q = `SELECT first,last,email,city,age,url FROM users LEFT JOIN profiles ON users.id = profiles.user_id WHERE users.id = $1`;
     const params = [id];
     return db.query(q, params);
 };

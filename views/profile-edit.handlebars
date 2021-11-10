@@ -13,38 +13,38 @@
             <div class="inputfields">
                 {{#userProfile}}
                 <div class="input">
-                    <label for="first">First Name </label>
-                    <input type="text" name="first" id=""
-                        placeholder="First Name" />
+                    <label for="first">{{first}}First Name </label>
+                    <input type="text" name="first"
+                        value= {{first}} />
                 </div>
                 <div class="input">
-                    <label for="last">Last Name </label>
-                    <input type="text" name="last" id=""
-                        placeholder="Last Name" />
+                    <label for="last">Last Name {{last}}</label>
+                    <input type="text" name="last"
+                        value="{{last}}" />
                 </div>
 
                 <div class="input">
                     <label for="email">E-Mail </label>
-                    <input type="text" name="email" id=""
-                        placeholder="E-Mail" />
+                    <input type="text" name="email"
+                        value={{email}} />
                 </div>
                 <div class="input">
                     <label for="password">Password </label>
-                    <input type="text" name="password" id=""
-                        placeholder="Password" />
+                    <input type="text" name="password"
+                        placeholder="******************" />
                 </div>
                 <div class="input">
                     <label for="first">Age </label>
-                    <input type="number" name="age" id=""  min="16" placeholder="Age" />
+                    <input type="number" name="age"  min="16" value={{age}} />
                 </div>
                 <div class="input">
                     <label for="last">City </label>
-                    <input type="text" name="city" id="" placeholder="City" />
+                    <input type="text" name="city" value={{city}} />
                 </div>
 
                 <div class="input">
                     <label for="url">URL</label>
-                    <input type="text" name="url" id="" placeholder="Url" />
+                    <input type="text" name="url" value={{url}} />
                 </div>
                 {{/userProfile}}
             </div>
