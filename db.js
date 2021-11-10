@@ -37,7 +37,7 @@ module.exports.checkIfHasSigned = (user_id) => {
     return db.query(q);
 };
 
-module.exports.checkPassword = (email) => {
+module.exports.getPassword = (email) => {
     const q = `SELECT password  FROM users WHERE email = $1`;
     const params = [email];
     return db.query(q, params);

@@ -3,8 +3,6 @@ const bcrypt = require("bcryptjs");
 
 exports.hash = password => {
     return bcrypt.genSalt().then(salt => {
-        console.log(salt);
-        console.log(password);
         return bcrypt.hash(password, salt);
     });
 };

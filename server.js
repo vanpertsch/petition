@@ -11,45 +11,53 @@ const cookieSession = require('cookie-session');
 const helmet = require('helmet');
 const { parse } = require('path');
 
-app.use(helmet.frameguard());
+
+
 
 app.engine("handlebars", hb());
 app.set("view engine", "handlebars");
 
+// ---------------------------------Start Middleware-------------------------
+
+app.use(helmet.frameguard());
 
 app.use(express.static(path.join(__dirname, '/public')));
 
+//Makes the body elements from the post request readble
 app.use(express.urlencoded({
     extended: false
 }));
 
-
+//Enables session cookies
 app.use(cookieSession({
     secret: `Get a free cookie.`,
     maxAge: 1000 * 60 * 60 * 24 * 14,
     sameSite: true
 }));
 
+//Security
 app.use((req, res, next) => {
     res.setHeader("x-frame-options", "deny");
     next();
 });
 
+
+//To have information about the routes while developing
 app.use((req, res, next) => {
     console.log(`${req.method}|${req.url}`);
     next();
 });
 
+// ---------------------------------End Middleware-------------------------
+
+
 app.get("/", (req, res) => {
     res.redirect("/register");
 });
 
-
-
 app.get("/register", (req, res) => {
     res.render("register");
 });
-
 
 app.post("/register", (req, res) => {
 
@@ -72,42 +80,37 @@ app.post("/register", (req, res) => {
 });
 
 
-
-
 app.post("/login", (req, res) => {
 
     const { email, password } = req.body;
-    console.log("login emlai", email);
 
     db.checkEmail(email).then(result => {
-        // console.log(result);
         if (result == undefined) {
             return res.render("login", {
                 error: "Please enter valid email and password"
             });
         } else {
-            return db.checkPassword(email)
+            return db.getPassword(email)
                 .then(({ rows }) => {
                     return compare(password, rows[0].password);
                 }).then(result => {
-                    // console.log("comapre", result);
+                    //if user is already registered:
                     if (result) {
                         return db.getUserId(email).then(({ rows }) => {
-                            // console.log("userId", rows[0].id);
+                            //Set Session Cookie
                             req.session.userId = rows[0].id;
+                            //check if he has signed petition and redirect
                             db.checkIfHasSigned(rows[0].id).then(({ rows }) => {
-                                // console.log(rows[0].signature);
                                 if (rows[0] == undefined) {
                                     return res.redirect("/petition");
 
                                 } else {
-                                    // req.session.userId = rows[0].id;
                                     return res.redirect("/thanks");
                                 }
                             });
 
                         });
-
+                        // if user enters wrong password / is not registered
                     } else {
                         return res.render("login", {
                             error: "Please enter valid email and password"
@@ -137,23 +140,22 @@ app.get("/petition", (req, res) => {
 app.post("/petition", (req, res) => {
 
     const user_id = req.session.userId;
-
-    console.log(req.body);
+    //get value of hidden field. which is set to image from signature
     const { hidden } = req.body;
 
     db.addSignature(user_id, hidden)
         .then(({ rows }) => {
+            //set sessioncookie for the signature
             req.session.signatureId = rows[0].id;
-            console.log("yay insertet", req.session);
             res.redirect("/thanks");
         }).catch(err => {
             console.log("err in addSigner", err);
         });
-
 });
 
 
 app.get("/thanks", (req, res) => {
+    // check for signatureId in cookie
     if (req.session.signatureId) {
         Promise.all([
             db.getSignature(req.session.signatureId),
@@ -164,7 +166,6 @@ app.get("/thanks", (req, res) => {
                 let signersTotal = data[1].rows[0];
 
                 res.render("thanks", {
-                    // layout: null,
                     sign: sign,
                     signersTotal: signersTotal
                 });
@@ -178,12 +179,9 @@ app.get("/thanks", (req, res) => {
 
 app.get("/signers", (req, res) => {
 
-
     db.getSignersWithJoin().then(({ rows }) => {
         console.log("SignersJOIN", rows);
         return res.render("signers", {
-            // layout: null,
-            allSigners: true,
             signers: rows
         });
     }).catch(err => console.log("err in getSignersWithJoin", err));
@@ -195,10 +193,8 @@ app.get("/signers/city/:city", (req, res) => {
     db.getSignersInCity(cityFromUrl).then(({ rows }) => {
         console.log("getSignersInCity", rows);
         return res.render("signers", {
-            // layout: null,
             cityFromUrl: cityFromUrl,
             signers: rows
-
         });
 
     }).catch(err => console.log("err in getSignersInCity", err));
@@ -215,15 +211,16 @@ app.get("/profile", (req, res) => {
 app.post("/profile", (req, res) => {
 
     let { age, city, url } = req.body;
+
     const user_id = req.session.userId;
     const cityInLowerCases = city.toLowerCase();
     if (url && !url.startsWith("http")) {
         url = "http://" + url;
-        console.log("cahnge")
+        console.log("changed");
     }
 
     db.addProfile(user_id, age, cityInLowerCases, url)
-        .then(({ rows }) => {
+        .then(() => {
             console.log("yay insertet", req.session);
             res.redirect("/petition");
         }).catch((err) => {
@@ -235,16 +232,10 @@ app.post("/profile", (req, res) => {
 });
 
 
-
-
-// add this logout route to delete your cookies
+// logout route to delete your cookies
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
 });
-
-//
-
-
 
 app.listen(8080, () => console.log("running on 8080"));
