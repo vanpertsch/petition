@@ -28,9 +28,11 @@ app.use(express.urlencoded({
     extended: false
 }));
 
+const { COOKIE_SECRET } = process.env || require("secrets.json");
+
 //Enables session cookies
 app.use(cookieSession({
-    secret: `Get a free cookie.`,
+    secret: COOKIE_SECRET,
     maxAge: 1000 * 60 * 60 * 24 * 14,
     // Security protect against Cross- site request forgeries(CSRF):
     sameSite: true
