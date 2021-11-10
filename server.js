@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const db = require("./db.js");
+
 const { hash, compare } = require("./bc.js");
 
 const hb = require("express-handlebars");
@@ -9,7 +10,6 @@ const path = require("path");
 const cookieSession = require('cookie-session');
 
 const helmet = require('helmet');
-const { parse } = require('path');
 
 
 
@@ -32,17 +32,18 @@ app.use(express.urlencoded({
 app.use(cookieSession({
     secret: `Get a free cookie.`,
     maxAge: 1000 * 60 * 60 * 24 * 14,
+    // Security protect against Cross- site request forgeries(CSRF):
     sameSite: true
 }));
 
-//Security
+//Security protects against clickjacking/ website being loaded as an iframe
 app.use((req, res, next) => {
     res.setHeader("x-frame-options", "deny");
     next();
 });
 
 
-//To have information about the routes while developing
+//Get information about the routes while developing
 app.use((req, res, next) => {
     console.log(`${req.method}|${req.url}`);
     next();
@@ -133,8 +134,13 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/petition", (req, res) => {
-    res.render("petition", {
-    });
+    if (req.session.signatureId) {
+        res.redirect("/thanks");
+    } else {
+        res.render("petition", {
+        });
+    }
+
 });
 
 app.post("/petition", (req, res) => {
@@ -156,6 +162,7 @@ app.post("/petition", (req, res) => {
 
 app.get("/thanks", (req, res) => {
     // check for signatureId in cookie
+    console.log("req.session", req.session)
     if (req.session.signatureId) {
         Promise.all([
             db.getSignature(req.session.signatureId),
@@ -207,6 +214,18 @@ app.get("/profile", (req, res) => {
     });
 
 });
+app.get("/profile-edit", (req, res) => {
+    const user_id = req.session.userId;
+    db.getUserProfile(user_id)
+        .then(({ rows }) => {
+            console.log("getProfile", rows);
+            res.render("profile-edit", {
+                userProfile: rows
+            });
+        }).catch(err => console.log("error in getUserProfile", err));
+
+
+});
 
 app.post("/profile", (req, res) => {
 
@@ -238,4 +257,4 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 
-app.listen(8080, () => console.log("running on 8080"));
+app.listen(process.env.PORT || 8080, () => console.log("running on 8080"));

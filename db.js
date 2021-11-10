@@ -4,7 +4,7 @@ const dbUsername = "postgres";
 const dbUserPassword = "postgres";
 const database = "petition";
 
-const db = spicedPg(`postgres:${dbUsername}:${dbUserPassword}@localhost:5432/${database}`);
+const db = spicedPg(process.env.DATABASE_URL || `postgres:${dbUsername}:${dbUserPassword}@localhost:5432/${database}`);
 
 console.log("[db] Connecting to ", database);
 
@@ -65,6 +65,11 @@ module.exports.getSignersWithJoin = () => {
 module.exports.getSignersInCity = (city) => {
     const q = `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id JOIN signatures ON users.id = signatures.user_id WHERE city = $1`;
     const params = [city];
+    return db.query(q, params);
+};
+module.exports.getUserProfile = (id) => {
+    const q = `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id JOIN signatures ON users.id = signatures.user_id WHERE users.id = $1`;
+    const params = [id];
     return db.query(q, params);
 };
 

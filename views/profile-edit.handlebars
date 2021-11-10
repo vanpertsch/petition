@@ -1,0 +1,55 @@
+{{>topimage}}
+
+<div class="container">
+     <div class="teaser">
+        <div class="teaser-left">
+            <p class="teaser__text">
+               {{error}}</p>
+        </div>
+    </div>
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+                {{#userProfile}}
+                <div class="input">
+                    <label for="first">First Name </label>
+                    <input type="text" name="first" id=""
+                        placeholder="First Name" />
+                </div>
+                <div class="input">
+                    <label for="last">Last Name </label>
+                    <input type="text" name="last" id=""
+                        placeholder="Last Name" />
+                </div>
+
+                <div class="input">
+                    <label for="email">E-Mail </label>
+                    <input type="text" name="email" id=""
+                        placeholder="E-Mail" />
+                </div>
+                <div class="input">
+                    <label for="password">Password </label>
+                    <input type="text" name="password" id=""
+                        placeholder="Password" />
+                </div>
+                <div class="input">
+                    <label for="first">Age </label>
+                    <input type="number" name="age" id=""  min="16" placeholder="Age" />
+                </div>
+                <div class="input">
+                    <label for="last">City </label>
+                    <input type="text" name="city" id="" placeholder="City" />
+                </div>
+
+                <div class="input">
+                    <label for="url">URL</label>
+                    <input type="text" name="url" id="" placeholder="Url" />
+                </div>
+                {{/userProfile}}
+            </div>
+            <button>Edit Profile</button>
+        </form>
+    </div>
+
+</div>
