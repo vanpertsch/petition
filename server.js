@@ -11,11 +11,20 @@ const cookieSession = require('cookie-session');
 
 const helmet = require('helmet');
 
-
-
-
 app.engine("handlebars", hb());
 app.set("view engine", "handlebars");
+
+
+if (process.env.NODE_ENV == 'production') {
+    app.use((req, res, next) => {
+        if (req.headers['x-forwarded-proto'].startsWith('https')) {
+            return next();
+        }
+        res.redirect(`https://${req.hostname}${req.url}`);
+    });
+}
+
+
 
 // ---------------------------------Start Middleware-------------------------
 
