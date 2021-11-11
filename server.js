@@ -1,5 +1,6 @@
 const express = require("express");
-const app = express();
+const app = exports.app = express();
+
 const db = require("./db.js");
 
 const { hash, compare } = require("./bc.js");
@@ -107,5 +108,6 @@ app.post("/petition", requireLoggedIn, requireNotSigned, (req, res) => {
 
 
 
-
-app.listen(process.env.PORT || 8080, () => console.log("running on 8080"));
+if (require.main == module) {
+    app.listen(process.env.PORT || 8080, () => console.log("running on 8080"));
+}
