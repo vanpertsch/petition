@@ -15,13 +15,13 @@
   CREATE TABLE signatures(
       id SERIAL PRIMARY KEY,
       signature TEXT NOT NULL CHECK (signature != ''),
-      user_id INTEGER NOT NULL REFERENCES users(id),
+      user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
       timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
 
   CREATE TABLE profiles(
       id SERIAL PRIMARY KEY,
-      user_id INTEGER NOT NULL REFERENCES users(id),
+      user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
       city TEXT,
       age INT,
       url TEXT
