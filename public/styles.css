@@ -231,3 +231,53 @@ img.sig {
         margin: auto;
     }
 }
+@media screen and (max-width: 768px) {
+    .logo a {
+        font-size: 1.8rem;
+    }
+    .logo span {
+        line-height: 1.8rem;
+        font-size: 1.3rem;
+    }
+    .logo {
+        padding-top: 0.8em;
+        padding-bottom: 1em;
+    }
+    .link-green {
+        font-size: 1rem;
+    }
+    .topimage {
+        height: 30vh;
+    }
+    .box {
+        flex-direction: column;
+    }
+    .box-left {
+        width: 100%;
+    }
+    .box-right {
+        width: 100%;
+    }
+    .input {
+        height: 45px;
+    }
+    input {
+        width: 65%;
+        padding: 0.7em 0.5em 0.5em 1em;
+    }
+    label {
+        width: 35%;
+        padding: 0.7em 0.9em 0.5em 0;
+    }
+    .mandatory {
+        margin-left: 0.1em;
+    }
+    img.sig {
+        width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+    .margin-top-5 {
+        margin-top: 1.5rem;
+    }
+}
