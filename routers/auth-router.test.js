@@ -28,7 +28,7 @@ test('Users who are logged in and have signed the petition are redirected to the
     const fakeSess = { userId: 2, signatureId: 1 };
     cookieSess.mockSessionOnce(fakeSess);
 
-    return supertest(app).get('/petition').then(
+    return supertest(app).('/petition').then(
         res => {
             expect(res.statusCode).toBe(302);
             expect(res.headers.location.endsWith('/thanks')).toBe(true);

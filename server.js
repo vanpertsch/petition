@@ -95,6 +95,13 @@ app.post("/petition", requireLoggedIn, requireNotSigned, (req, res) => {
 
     db.addSignature(user_id, hidden)
         .then(({ rows }) => {
+            console.log(rows);
+
+            if (rows[0].id == undefined || rows[0].id == "") {
+                return res.render("petition", {
+                    error: "Please try again"
+                });
+            }
             //set sessioncookie for the signature
             req.session.signatureId = rows[0].id;
             res.redirect("/thanks");

@@ -1,31 +1,39 @@
 {{>topimage}}
 <div class="container">
-    <div class="teaser">
-        <div class="teaser-left">
+    <div class="box">
+        <div class="box-left">
             <h2>These people signed the petition {{#if cityFromUrl}} in
                 {{cityFromUrl}} {{/if}}</h2>
             <div class="signers">
                 {{#signers}}
                 <p class="signer"> ✅
-                    {{first}}
-                    {{last}}
+                    {{#if url}}
+                    <a class="link-signer" href="{{url}}">
+                        {{/if}}
+                        {{first}}
+                        {{last}}
+                        {{#if url}}
+                    </a>
+                    {{/if}}
                     {{age}}
-
-                </p>
                 {{#if ../cityFromUrl}}
-
+<span></span>
                 {{else}}
+                →
                 <a href="signers/city/{{city}}">
                     {{city}}
                 </a>
                 {{/if }}
+                </p>
+
                 {{/signers}}
             </div>
         </div>
 
-        <div class="teaser-right">
+        <div class="box-right">
 
-            <div class="teaser__image"> <img src="images/logo.png" alt="logo" />
+            <div class="box__image margin-top-5"> <img src="images/logo.png"
+                    alt="logo" />
             </div>
         </div>
     </div>
