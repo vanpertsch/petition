@@ -262,12 +262,13 @@ img.sig {
         height: 45px;
     }
     input {
-        width: 65%;
+        width: 70%;
         padding: 0.7em 0.5em 0.5em 1em;
     }
     label {
-        width: 35%;
-        padding: 0.7em 0.9em 0.5em 0;
+        font-size: 0.8rem;
+        width: 30%;
+        padding: 1.1em 0.9em 0.5em 0;
     }
     .mandatory {
         margin-left: 0.1em;
