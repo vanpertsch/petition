@@ -9,6 +9,11 @@
         canvas.addEventListener('mousemove', canvas_mouseMove);
         window.addEventListener('mouseup', canvas_mouseUp);
 
+        // add touch events
+        canvas.addEventListener("touchstart", canvas_mouseDown);
+        canvas.addEventListener("touchmove", canvas_mouseMove);
+        canvas.addEventListener("touchend", canvas_mouseUp);
+
         // Get the current mouse position relative to the top-left of the canvas
         function getMousePos(canvas, e) {
 
