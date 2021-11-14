@@ -91,7 +91,7 @@ module.exports.getSigners = (ids) => {
 };
 
 module.exports.getSignersWithJoin = () => {
-    const q = `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id JOIN signatures ON users.id = signatures.user_id`;
+    const q = `SELECT * FROM signatures LEFT JOIN users ON users.id = signatures.user_id LEFT JOIN profiles ON profiles.user_id = signatures.user_id`;
     return db.query(q);
 };
 module.exports.getSignersInCity = (city) => {
