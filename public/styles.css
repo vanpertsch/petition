@@ -191,8 +191,8 @@ footer {
 
 img.sig {
     border: 1px solid #478d32;
-    width: 70%;
-    height: auto;
+    width: auto;
+    height: 300px;
     object-fit: cover;
     object-position: top left;
     margin: 3rem 0 0.5rem 0;
@@ -218,6 +218,11 @@ img.sig {
 .mandatory {
     margin-left: 0.1428em;
     color: #478d32;
+}
+
+.city-link:not(:empty)::before {
+    content: "→";
+    color: rgb(44, 43, 48);
 }
 
 /* -------------------------------mediaqueries */
@@ -280,5 +285,12 @@ img.sig {
     }
     .margin-top-5 {
         margin-top: 1.5rem;
+    }
+
+    .box__text {
+        font-size: 1.1rem;
+        margin-top: 0.5em;
+        margin-bottom: 1.2em;
+        line-height: 1.6rem;
     }
 }
