@@ -62,7 +62,7 @@ module.exports.checkEmail = (email) => {
 };
 
 module.exports.checkIfHasSigned = (user_id) => {
-    const q = `SELECT signature,id FROM signatures WHERE user_id =$1`;
+    const q = `SELECT signatures.id FROM signatures WHERE user_id =$1`;
     const params = [user_id];
     return db.query(q, params);
 };
