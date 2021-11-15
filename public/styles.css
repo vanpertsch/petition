@@ -225,6 +225,10 @@ img.sig {
     color: rgb(44, 43, 48);
 }
 
+.red {
+    color: crimson;
+}
+
 /* -------------------------------mediaqueries */
 
 @media screen and (max-width: 1200px) {
