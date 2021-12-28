@@ -1,4 +1,6 @@
 const express = require("express");
+
+//export for testing
 const app = exports.app = express();
 
 const db = require("./db.js");
@@ -31,11 +33,10 @@ if (process.env.NODE_ENV == 'production') {
     });
 }
 
-
-
 // ---------------------------------Start Middleware-------------------------
 
-app.use(helmet.frameguard());
+// app.use(helmet.frameguard());
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, '/public')));
 
