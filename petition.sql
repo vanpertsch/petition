@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-  DROP TABLE IF EXISTS signatures;
-
-   CREATE TABLE signatures (
-       id SERIAL PRIMARY KEY,
-       first VARCHAR NOT NULL CHECK (first != ''),
-       last VARCHAR NOT NULL CHECK (last != ''),
-       signature TEXT NOT NULL CHECK (signature != ''),
-       created_at TIMESTAMP DEFAULT NOW()
-   );
-=======
 
   DROP TABLE IF EXISTS profiles;
   DROP TABLE IF EXISTS signatures;
@@ -37,4 +26,3 @@
       age INT,
       url TEXT
   );
->>>>>>> e9c1709146da9672484586dacb99cf10f7a48c10
