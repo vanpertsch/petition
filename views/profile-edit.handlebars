@@ -1,0 +1,60 @@
+{{>topimage}}
+
+
+{{#if error}}
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <p class="box__text red">
+                {{error}}</p>
+        </div>
+    </div>
+</div>
+{{/if}}
+<div class="container">
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+                {{#userProfile}}
+                <div class="input">
+                    <label for="first">First Name </label>
+                    <input type="text" name="first"
+                        value= "{{first}} " required/>
+                </div>
+                <div class="input">
+                    <label for="last">Last Name</label>
+                    <input type="text" name="last"
+                        value="{{last}}" required/>
+                </div>
+
+                <div class="input">
+                    <label for="email">E-Mail </label>
+                    <input type="text" name="email"
+                        value="{{email}}" required/>
+                </div>
+                <div class="input">
+                    <label for="password">Password </label>
+                    <input type="password" name="password"
+                        placeholder="******************"/>
+                </div>
+                <div class="input">
+                    <label for="first">Age </label>
+                    <input type="number" name="age"  min="16" value="{{age}}" />
+                </div>
+                <div class="input">
+                    <label for="last">City </label>
+                    <input type="text" name="city" value="{{city}}" />
+                </div>
+
+                <div class="input">
+                    <label for="url">URL</label>
+                    <input type="text" name="url" value="{{url}}" />
+                </div>
+                {{/userProfile}}
+            </div>
+            <button>Edit Profile</button>
+        </form>
+    </div>
+
+</div>

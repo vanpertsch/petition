@@ -1,0 +1,68 @@
+{{>topimage}}
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <p class="box__text">
+                The more people switch to bicycles, the better people will be able to live in cities and communities in the future. More bicycle traffic means fewer cars, less congestion and less bad air. Sign for more bikelanes in your city.</p>
+
+
+        </div>
+    </div>
+</div>
+{{#if error}}
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <p class="box__text red">
+                {{error}}</p>
+        </div>
+    </div>
+</div>
+{{/if}}
+<div class="container">
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+                <div class="input">
+                    <label for="first">First Name <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="first" id=""
+                        placeholder="First Name" required />
+                </div>
+                <div class="input">
+                    <label for="last">Last Name <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="last" id="" placeholder="Last Name"
+                        required />
+                </div>
+
+                <div class="input">
+                    <label for="email">E-Mail <span
+                            class="mandatory">*</span></label>
+                    <input type="email" name="email" id="" placeholder="E-Mail"
+                        required />
+                </div>
+                <div class="input">
+                    <label for="password">Password <span
+                            class="mandatory">*</span></label>
+                    <input type="password" name="password" id=""
+                        placeholder="Password" required />
+                </div>
+                <input type="hidden" id="hiddenfield" name="hidden"
+                    value="testing" />
+            </div>
+            <button>Sign Up!</button>
+        </form>
+    </div>
+    <div class="box">
+        <div class="box-left">
+            <p class="box__text">
+                → If you are already a member please <a class="link-green"
+                    href="/login">
+                    log in</a></p>
+        </div>
+    </div>
+</div>
+
+

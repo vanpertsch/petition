@@ -19,9 +19,12 @@
             dataURL = canvas.toDataURL();
             const hiddenField = document.getElementById("hiddenfield");
             hiddenField.value = dataURL;
+
             $("#canvas").off("mousemove");
         });
     });
 
 
 })();
+
+

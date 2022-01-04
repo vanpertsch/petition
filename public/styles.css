@@ -11,15 +11,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-.container {
-    width: 80%;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    height: auto;
+    font-size: 1.1rem;
 }
 
 ul {
@@ -28,30 +20,29 @@ ul {
 
 nav {
     width: 100%;
-    height: 8vh;
+    min-height: 8vh;
     display: flex;
     justify-content: space-between;
     vertical-align: baseline;
     /* line-height: 1.2rem; */
 }
-.logo a {
-    font-size: 3rem;
-}
-.logo span {
-    line-height: 3rem;
-    font-size: 1.8rem;
-}
-.menu {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-}
 
 a {
+    color: #478d32;
     text-decoration: none;
 }
 
-a.active {
-    color: lightgreen;
+button > a {
+    color: #fff;
+}
+
+a.link-green {
+    text-transform: uppercase;
+    color: #478d32;
+}
+a.link-signer {
+    color: #478d32;
+    /* border-bottom: 1px solid #478d32; */
 }
 
 img {
@@ -62,68 +53,8 @@ img {
     object-position: top left;
 }
 
-.topimage {
-    width: 100%;
-    height: 72vh;
-    background: url(images/bike-lane.jpg) center no-repeat;
-    background-size: cover;
-    /* object-fit: cover;
-    object-position: top left; */
-}
-
 h2 {
     font-size: 1.8rem;
-}
-
-.teaser {
-    width: 100%;
-    margin-top: 3rem;
-    display: flex;
-}
-.thanks {
-}
-
-.supporters {
-    text-transform: uppercase;
-    color: #478d32;
-}
-.teaser-left {
-    width: 70%;
-}
-.teaser-right {
-    width: 30%;
-    position: relative;
-}
-
-.teaser__image {
-    position: absolute;
-    top: 80px;
-    left: 150px;
-}
-
-.teaser__text {
-    font-size: 1.2rem;
-    margin-top: 0.8em;
-    margin-bottom: 1.6em;
-    line-height: 1.8rem;
-}
-.signers {
-    margin-top: 3rem;
-}
-.signer {
-    font-size: 1.2rem;
-    margin-top: 0.4em;
-    margin-bottom: 0.8em;
-    line-height: 1.8rem;
-}
-
-img.sig {
-    border: 1px solid #478d32;
-    width: 80%;
-    height: auto;
-    object-fit: cover;
-    object-position: top left;
-    margin: 3rem 0;
 }
 
 canvas {
@@ -132,36 +63,33 @@ canvas {
     position: relative; /* Necessary for correct mouse co-ords in Firefox */
 }
 
-.form {
-    width: 80%;
-    margin: auto;
-    height: auto;
-}
 form {
     width: 70%;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
+    margin: auto;
+}
+form.form-left {
+    margin: 0;
+}
+
+label {
+    /* display: inline-block; */
+    width: 20%;
+    padding: 1em 1.35714em;
 }
 
 input {
-    padding: 0.85714em 1.35714em;
+    width: 80%;
+    padding: 1em 1.35714em;
     line-height: normal;
     border: 1px solid #dcdcdc;
     border-bottom-color: #cfcfcf;
     font-size: 0.93333em;
     color: inherit;
     background: #fff;
-    margin: 0 18px 0 12px;
-}
-
-.mandatory {
-    margin-left: 0.1428em;
-    color: #478d32;
-}
-.inputfields {
-    margin-top: 1.2em;
-    margin-bottom: 1.2em;
 }
 
 button {
@@ -178,12 +106,195 @@ button {
     background-color: rgb(44, 43, 48);
     margin-top: 20px;
 }
+
 button:hover {
     background-color: #478d32;
     color: cornsilk;
 }
+
 footer {
     text-align: center;
     margin: 3rem;
     padding: 3rem 0 2rem 0;
+}
+
+.menu {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+.logo a {
+    font-size: 3rem;
+}
+.logo span {
+    line-height: 3rem;
+    font-size: 1.8rem;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.topimage {
+    width: 100%;
+    height: 72vh;
+    background: url(images/bike-lane.jpg) center no-repeat;
+    background-size: cover;
+    /* object-fit: cover;
+    object-position: top left; */
+}
+
+.box {
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+}
+
+.box-left {
+    width: 70%;
+    /* margin: auto; */
+}
+.box-right {
+    width: 30%;
+    position: relative;
+}
+
+.box__image {
+    /* position: absolute;
+    top: 231px;
+    left: -97px; */
+}
+
+.box__text {
+    font-size: 1.2rem;
+    margin-top: 0.8em;
+    margin-bottom: 1.6em;
+    line-height: 1.8rem;
+}
+
+.margin-top-5 {
+    margin-top: 5rem;
+}
+.signers {
+    margin-top: 3rem;
+}
+.signer {
+    font-size: 1.2rem;
+    margin-top: 0.4em;
+    margin-bottom: 0.8em;
+    line-height: 1.8rem;
+}
+
+img.sig {
+    border: 1px solid #478d32;
+    width: auto;
+    height: 300px;
+    object-fit: cover;
+    object-position: top left;
+    margin: 3rem 0 0.5rem 0;
+}
+
+.form {
+    width: 100%;
+    height: auto;
+}
+
+.inputfields {
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+}
+
+.input {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+.mandatory {
+    margin-left: 0.1428em;
+    color: #478d32;
+}
+
+.city-link:not(:empty)::before {
+    content: "→";
+    color: rgb(44, 43, 48);
+}
+
+.red {
+    color: crimson;
+}
+
+/* -------------------------------mediaqueries */
+
+@media screen and (max-width: 1200px) {
+    form {
+        width: 100%;
+    }
+    .box-left {
+        width: 100%;
+        margin: auto;
+    }
+}
+@media screen and (max-width: 768px) {
+    .logo a {
+        font-size: 1.8rem;
+    }
+    .logo span {
+        line-height: 1.8rem;
+        font-size: 1.3rem;
+    }
+    .logo {
+        padding-top: 0.8em;
+        padding-bottom: 1em;
+    }
+    .link-green {
+        font-size: 1rem;
+    }
+    .topimage {
+        height: 30vh;
+    }
+    .box {
+        flex-direction: column;
+    }
+    .box-left {
+        width: 100%;
+    }
+    .box-right {
+        width: 100%;
+    }
+    .input {
+        height: 45px;
+    }
+    input {
+        width: 70%;
+        padding: 0.7em 0.5em 0.5em 1em;
+    }
+    label {
+        font-size: 0.8rem;
+        width: 30%;
+        padding: 1.1em 0.9em 0.5em 0;
+    }
+    .mandatory {
+        margin-left: 0.1em;
+    }
+    img.sig {
+        width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+    .margin-top-5 {
+        margin-top: 1.5rem;
+    }
+
+    .box__text {
+        font-size: 1.1rem;
+        margin-top: 0.5em;
+        margin-bottom: 1.2em;
+        line-height: 1.6rem;
+    }
 }

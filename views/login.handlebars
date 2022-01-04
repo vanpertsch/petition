@@ -1,0 +1,43 @@
+{{>topimage}}
+{{#if error}}
+<div class="container">
+    <div class="box">
+        <div class="box-left">
+            <p class="box__text red">
+                {{error}}</p>
+        </div>
+    </div>
+</div>
+{{/if}}
+<div class="container">
+    <div class="form">
+
+        <form method="POST">
+            <div class="inputfields">
+
+                <div class="input">
+                    <label for="email">E-Mail <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="email" id=""
+                        placeholder="E-Mail" />
+                </div>
+                <div class="input">
+                    <label for="password">Password <span
+                            class="mandatory">*</span></label>
+                    <input type="text" name="password" id=""
+                        placeholder="Password" />
+                </div>
+
+            </div>
+            <button>Log in!</button>
+        </form>
+    </div>
+    <div class="box">
+        <div class="box-left">
+            <p class="box__text">
+                → If you are NOT already a member please <a class="link-green"
+                    href="/register">
+                    Register</a></p>
+        </div>
+    </div>
+</div>

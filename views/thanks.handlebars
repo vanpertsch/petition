@@ -1,23 +1,46 @@
 {{>topimage}}
 <div class="container">
-    <div class="teaser">
-    <div class="teaser-left">
-        <h2>Thank you for your support!</h2>
-          {{#sign}}
-              <img class="sig" src="{{signature}}" alt="" />
-            {{/sign}}
-         {{#signersTotal}}
-          <p class="teaser__text">
-         {{count}}
-       people have singed the petition. Who else has signed? </p>
-        {{/signersTotal}}
-    <p class="teaser__text">See our <a class="supporters" href="/signers"> supporters</a></p>
+  <div class="box">
+    <div class="box-left">
+      <h2>Thank you for your support!</h2>
+      {{#sign}}
+      <img class="sig" src="{{signature}}" alt="" />
+      {{/sign}}
     </div>
-    <div class="teaser-right">
+    <div class="box-right">
 
-    <div class="teaser__image"> <img src="images/logo.png" alt="logo" /></div>
+      {{#signersTotal}}
+      <p class="box__text margin-top-5">
+        <span class="link-green">{{count}}</span>
+
+        people have singed the petition. Who else has signed?
+      </p>
+      {{/signersTotal}}
+
+      <p class="box__text">→ See our <a class="link-green" href="/signers">
+          supporters</a></p>
+
+      <div class="box__image"> <img src="images/logo.png" alt="logo" /></div>
     </div>
-</div>
+
+  </div>
 </div>
 
+<div class="container">
+  <div class="box">
+    <div class="box-left">
+      <form class="form-left" method="post" action="/signature/delete">
+        <button>Delete
+          Signature</button>
+      </form>
+      <form class="form-left">
+        <button><a href="/profile-edit">Edit Profile</a>
+        </button>
+      </form>
+    </div>
+    <div class="box-right">
 
+    </div>
+
+  </div>
+</div>
