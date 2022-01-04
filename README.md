@@ -31,3 +31,7 @@ To fork and work with this project follow these steps:
 4. Start development server
 
 -   node index.js
+
+## Preview
+
+<img src="./public/images/example.png" style="margin-left:auto; margin-right:auto;" />
