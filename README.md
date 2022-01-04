@@ -18,19 +18,19 @@ To fork and work with this project follow these steps:
 
 1. Clone the repository
 
--   git clone https://github.com/smuibrig/petition
+   -  `git clone git@github.com:vanpertsch/petition.git`
 
 2. Go inside the directory
 
--   cd petition
+   -   `cd petition`
 
 3. Install dependencies
 
--   npm install
+   -   `npm install`
 
 4. Start development server
 
--   node index.js
+   -   `node index.js`
 
 ## Preview
 
