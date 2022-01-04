@@ -1,10 +1,12 @@
-# petition
+# Petition Project
 
-Online petition that visitors can sign to make their voice heard. They may see other people who signed the petition sorted by cities.
+Online petition where visitors can register and sign to make their voice heard.
+They may see other people who signed the petition sorted by cities.
+They can change or delete their signature.
 
 ## Stack
 
-SQL, Node.js/Express, Handlebars
+SQL, Express, Handlebars, Node.js
 
 ## Demo
 
