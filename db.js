@@ -109,7 +109,7 @@ module.exports.getUserProfile = (id) => {
 module.exports.getSignature = (num) => {
     const q = `SELECT signature FROM signatures WHERE id = $1`;
     const params = [num];
-    return db.query(q, params);;
+    return db.query(q, params);
 };
 
 module.exports.getSignersTotal = () => {
