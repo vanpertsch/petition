@@ -1,12 +1,19 @@
 # Petition Project
 
-Online petition where visitors can register and sign to make their voice heard.
-They may see other people who signed the petition sorted by cities.
-They can change or delete their signature.
+A personal project developed with handlebars.js and express. One learning objective was to write own middleware to simplify status dependent routing. The App is deployed on heroku via automated deployment from github.
+
+The features include:
+
+- visitors can register
+- they can add profile informations
+- they can sign the petition
+- signatures can be deleted and changed
+- signers can see other people who signed the petition and filter by cities.
 
 ## Stack
 
-SQL, Express, Handlebars, Node.js
+[![Handlebars Badge](https://img.shields.io/badge/-handlebars.js-000000?style=flat&labelColor=f7efef&logo=handlebars.js&logoColor=000000)](#) [![Javascript Badge](https://img.shields.io/badge/-JavaScript-F0DB4F?style=flat&labelColor=302d2d&logo=javascript&logoColor=F0DB4F)](#)
+ [![Express Badge](https://img.shields.io/badge/-Express-000000?style=flat&labelColor=f7efef&logo=express&logoColor=000000)](#)[![PostgreSQL Badge](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat&labelColor=f7efef&logo=postgreSQL&logoColor=4169E1)](#)
 
 ## Demo
 
